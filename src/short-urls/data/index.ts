@@ -11,6 +11,7 @@ export interface EditShortUrlData {
   validateUrl?: boolean;
   crawlable?: boolean;
   forwardQuery?: boolean;
+  password?: string | null;
 }
 
 export interface ShortUrlData extends EditShortUrlData {
@@ -33,6 +34,7 @@ export interface ShortUrl {
   title?: string | null;
   crawlable?: boolean;
   forwardQuery?: boolean;
+  password?: string | null;
 }
 
 export interface ShortUrlMeta {

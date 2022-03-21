@@ -21,7 +21,7 @@ import './ShortUrlForm.scss';
 export type Mode = 'create' | 'create-basic' | 'edit';
 
 type DateFields = 'validSince' | 'validUntil';
-type NonDateFields = 'longUrl' | 'customSlug' | 'shortCodeLength' | 'domain' | 'maxVisits' | 'title';
+type NonDateFields = 'longUrl' | 'customSlug' | 'shortCodeLength' | 'domain' | 'maxVisits' | 'title' | 'password';
 
 export interface ShortUrlFormProps {
   mode: Mode;
@@ -43,6 +43,7 @@ export const ShortUrlForm = (
   const isEdit = mode === 'edit';
   const isBasicMode = mode === 'create-basic';
   const hadTitleOriginally = hasValue(initialState.title);
+  const hadPasswordOriginally = hasValue(initialState.password);
   const changeTags = (tags: string[]) => setShortUrlData({ ...shortUrlData, tags: tags.map(normalizeTag) });
   const reset = () => setShortUrlData(initialState);
   const resolveNewTitle = (): OptionalString => {
@@ -55,12 +56,23 @@ export const ShortUrlForm = (
 
     return matcher();
   };
+  const resolveNewPassword = (): OptionalString => {
+    const hasNewPassword = hasValue(shortUrlData.password);
+    const matcher = cond<never, OptionalString>([
+      [ () => !hasNewPassword && !hadPasswordOriginally, () => undefined ],
+      [ () => !hasNewPassword && hadPasswordOriginally, () => null ],
+      [ T, () => shortUrlData.password ],
+    ]);
+
+    return matcher();
+  };
   const submit = handleEventPreventingDefault(async () => onSave({
     ...shortUrlData,
     validSince: formatIsoDate(shortUrlData.validSince) ?? null,
     validUntil: formatIsoDate(shortUrlData.validUntil) ?? null,
     maxVisits: !hasValue(shortUrlData.maxVisits) ? null : Number(shortUrlData.maxVisits),
     title: resolveNewTitle(),
+    password: resolveNewPassword(),
   }).then(() => !isEdit && reset()).catch(() => {}));
 
   useEffect(() => {
@@ -172,6 +184,10 @@ export const ShortUrlForm = (
               </SimpleCard>
             </div>
           </Row>
+
+          <SimpleCard title="Password to protect URL resolution" className="mb-3">
+            {renderOptionalInput('password', 'Enter your password here...', 'text', { min: 8 })}
+          </SimpleCard>
 
           <Row>
             <div className={extraChecksCardClasses}>

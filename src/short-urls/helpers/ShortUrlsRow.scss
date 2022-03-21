@@ -22,3 +22,8 @@
     @include vertical-align(translateX(calc(-100% - 20px)));
   }
 }
+
+.url-lock-icon {
+  cursor: default;
+  font-size: 1.2rem;
+}

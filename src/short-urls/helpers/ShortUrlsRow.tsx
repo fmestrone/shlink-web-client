@@ -1,4 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKey as keyIcon } from '@fortawesome/free-solid-svg-icons';
 import { isEmpty } from 'ramda';
 import { ExternalLink } from 'react-external-link';
 import ColorGenerator from '../../utils/services/ColorGenerator';
@@ -62,6 +64,7 @@ const ShortUrlsRow = (
           <span className="badge bg-warning text-black short-urls-row__copy-hint" hidden={!copiedToClipboard}>
             Copied short URL!
           </span>
+          {shortUrl.password && <FontAwesomeIcon icon={keyIcon} className="ms-2 url-lock-icon" />}
         </span>
       </td>
       <td className="responsive-table__cell short-urls-row__cell short-urls-row__cell--break" data-th={`${shortUrl.title ? 'Title' : 'Long URL'}`}>
