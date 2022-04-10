@@ -157,7 +157,7 @@ describe('ShlinkApiClient', () => {
     it.each(shortCodesWithDomainCombinations)('properly updates short URL meta', async (shortCode, domain) => {
       const meta = {
         maxVisits: 50,
-        validSince: '2025-01-01T10:00:00+01:00',
+        validFrom: '2025-01-01T10:00:00+01:00',
       };
       const expectedResp = Mock.of<ShortUrl>();
       const axiosSpy = createAxiosMock({ data: expectedResp });

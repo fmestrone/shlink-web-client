@@ -68,7 +68,7 @@ describe('<EditShortUrl />', () => {
         tags: undefined,
         title: undefined,
         domain: undefined,
-        validSince: undefined,
+        validFrom: undefined,
         validUntil: undefined,
         maxVisits: undefined,
         validateUrl: true,

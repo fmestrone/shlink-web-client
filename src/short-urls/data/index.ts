@@ -5,7 +5,7 @@ export interface EditShortUrlData {
   longUrl?: string;
   tags?: string[];
   title?: string | null;
-  validSince?: Date | string | null;
+  validFrom?: Date | string | null;
   validUntil?: Date | string | null;
   maxVisits?: number | null;
   validateUrl?: boolean;
@@ -25,6 +25,7 @@ export interface ShortUrlData extends EditShortUrlData {
 export interface ShortUrl {
   shortCode: string;
   shortUrl: string;
+  qrShortUrl: string;
   longUrl: string;
   dateCreated: string;
   visitsCount: number;
@@ -38,7 +39,7 @@ export interface ShortUrl {
 }
 
 export interface ShortUrlMeta {
-  validSince?: string;
+  validFrom?: string;
   validUntil?: string;
   maxVisits?: number;
 }

@@ -76,6 +76,7 @@ export interface ShlinkEditDomainRedirects extends Partial<ShlinkDomainRedirects
 }
 
 export interface ShlinkDomain {
+  scheme: string;
   domain: string;
   isDefault: boolean;
   redirects?: ShlinkDomainRedirects; // Optional only for Shlink older than 2.8

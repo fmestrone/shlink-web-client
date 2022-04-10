@@ -23,7 +23,7 @@ interface QrCodeModalConnectProps extends ShortUrlModalProps {
 }
 
 const QrCodeModal = (imageDownloader: ImageDownloader, ForServerVersion: FC<Versions>) => ( // eslint-disable-line
-  { shortUrl: { shortUrl, shortCode }, toggle, isOpen, selectedServer }: QrCodeModalConnectProps,
+  { shortUrl: { qrShortUrl, shortCode }, toggle, isOpen, selectedServer }: QrCodeModalConnectProps,
 ) => {
   const [ size, setSize ] = useState(300);
   const [ margin, setMargin ] = useState(0);
@@ -36,8 +36,8 @@ const QrCodeModal = (imageDownloader: ImageDownloader, ForServerVersion: FC<Vers
   }), [ selectedServer ]);
   const willRenderThreeControls = capabilities.marginIsSupported !== capabilities.errorCorrectionIsSupported;
   const qrCodeUrl = useMemo(
-    () => buildQrCodeUrl(shortUrl, { size, format, margin, errorCorrection }, capabilities),
-    [ shortUrl, size, format, margin, errorCorrection, capabilities ],
+    () => buildQrCodeUrl(qrShortUrl, { size, format, margin, errorCorrection }, capabilities),
+    [ qrShortUrl, size, format, margin, errorCorrection, capabilities ],
   );
   const totalSize = useMemo(() => size + margin, [ size, margin ]);
   const modalSize = useMemo(() => {
@@ -51,7 +51,7 @@ const QrCodeModal = (imageDownloader: ImageDownloader, ForServerVersion: FC<Vers
   return (
     <Modal isOpen={isOpen} toggle={toggle} centered size={modalSize}>
       <ModalHeader toggle={toggle}>
-        QR code for <ExternalLink href={shortUrl}>{shortUrl}</ExternalLink>
+        QR code for <ExternalLink href={qrShortUrl}>{qrShortUrl}</ExternalLink>
       </ModalHeader>
       <ModalBody>
         <Row>

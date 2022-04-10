@@ -25,7 +25,7 @@ const getInitialState = (settings?: ShortUrlCreationSettings): ShortUrlData => (
   title: undefined,
   shortCodeLength: undefined,
   domain: '',
-  validSince: undefined,
+  validFrom: undefined,
   validUntil: undefined,
   maxVisits: undefined,
   findIfExists: false,

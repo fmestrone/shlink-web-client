@@ -20,7 +20,7 @@ import './ShortUrlForm.scss';
 
 export type Mode = 'create' | 'create-basic' | 'edit';
 
-type DateFields = 'validSince' | 'validUntil';
+type DateFields = 'validFrom' | 'validUntil';
 type NonDateFields = 'longUrl' | 'customSlug' | 'shortCodeLength' | 'domain' | 'maxVisits' | 'title' | 'password';
 
 export interface ShortUrlFormProps {
@@ -68,7 +68,7 @@ export const ShortUrlForm = (
   };
   const submit = handleEventPreventingDefault(async () => onSave({
     ...shortUrlData,
-    validSince: formatIsoDate(shortUrlData.validSince) ?? null,
+    validFrom: formatIsoDate(shortUrlData.validFrom) ?? null,
     validUntil: formatIsoDate(shortUrlData.validUntil) ?? null,
     maxVisits: !hasValue(shortUrlData.maxVisits) ? null : Number(shortUrlData.maxVisits),
     title: resolveNewTitle(),
@@ -178,9 +178,9 @@ export const ShortUrlForm = (
               <SimpleCard title="Limit access to the short URL">
                 {renderOptionalInput('maxVisits', 'Maximum number of visits allowed', 'number', { min: 1 })}
                 <div className="mb-3">
-                  {renderDateInput('validSince', 'Enabled since...', { maxDate: shortUrlData.validUntil ? toDate(shortUrlData.validUntil) : undefined })}
+                  {renderDateInput('validFrom', 'Enabled since...', { maxDate: shortUrlData.validUntil ? toDate(shortUrlData.validUntil) : undefined })}
                 </div>
-                {renderDateInput('validUntil', 'Enabled until...', { minDate: shortUrlData.validSince ? toDate(shortUrlData.validSince) : undefined })}
+                {renderDateInput('validUntil', 'Enabled until...', { minDate: shortUrlData.validFrom ? toDate(shortUrlData.validFrom) : undefined })}
               </SimpleCard>
             </div>
           </Row>

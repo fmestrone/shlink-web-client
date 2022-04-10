@@ -33,7 +33,7 @@ describe('<ShortUrlsRow />', () => {
     visitsCount: 45,
     domain: null,
     meta: {
-      validSince: null,
+      validFrom: null,
       validUntil: null,
       maxVisits: null,
     },

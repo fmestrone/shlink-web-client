@@ -40,7 +40,7 @@ export const DomainRow: FC<DomainRowProps> = (
   { domain, editDomainRedirects, checkDomainHealth, defaultRedirects, selectedServer },
 ) => {
   const [ isOpen, toggle ] = useToggle();
-  const { domain: authority, isDefault, redirects, status } = domain;
+  const { scheme, domain: authority, isDefault, redirects, status } = domain;
   const canEditDomain = !isDefault || supportsDefaultDomainRedirectsEdition(selectedServer);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const DomainRow: FC<DomainRowProps> = (
   return (
     <tr className="responsive-table__row">
       <td className="responsive-table__cell" data-th="Is default domain">{isDefault && <DefaultDomain />}</td>
-      <th className="responsive-table__cell" data-th="Domain">{authority}</th>
+      <th className="responsive-table__cell" data-th="Domain">{scheme}://{authority}</th>
       <td className="responsive-table__cell" data-th="Base path redirect">
         {redirects?.baseUrlRedirect ?? <Nr fallback={defaultRedirects?.baseUrlRedirect} />}
       </td>

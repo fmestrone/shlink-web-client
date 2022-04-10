@@ -23,7 +23,8 @@ export const buildQrCodeUrl = (
   { size, format, margin, errorCorrection }: QrCodeOptions,
   { useSizeInPath, marginIsSupported, errorCorrectionIsSupported }: QrCodeCapabilities,
 ): string => {
-  const baseUrl = `${shortUrl}/qr-code${useSizeInPath ? `/${size}` : ''}`;
+  // const baseUrl = `${shortUrl}/qr-code${useSizeInPath ? `/${size}` : ''}`;
+  const baseUrl = `${shortUrl}`;
   const query = stringifyQuery({
     size: useSizeInPath ? undefined : size,
     format,

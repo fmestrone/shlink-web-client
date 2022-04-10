@@ -37,7 +37,7 @@ describe('<ShortUrlForm />', () => {
 
   it('saves short URL with data set in form controls', () => {
     const wrapper = createWrapper();
-    const validSince = parseDate('2017-01-01', 'yyyy-MM-dd');
+    const validFrom = parseDate('2017-01-01', 'yyyy-MM-dd');
     const validUntil = parseDate('2017-01-06', 'yyyy-MM-dd');
 
     wrapper.find(Input).first().simulate('change', { target: { value: 'https://long-domain.com/foo/bar' } });
@@ -46,7 +46,7 @@ describe('<ShortUrlForm />', () => {
     wrapper.find(DomainSelector).simulate('change', 'example.com');
     wrapper.find('#maxVisits').simulate('change', { target: { value: '20' } });
     wrapper.find('#shortCodeLength').simulate('change', { target: { value: 15 } });
-    wrapper.find(DateInput).at(0).simulate('change', validSince);
+    wrapper.find(DateInput).at(0).simulate('change', validFrom);
     wrapper.find(DateInput).at(1).simulate('change', validUntil);
     wrapper.find('form').simulate('submit', { preventDefault: identity });
 
@@ -56,7 +56,7 @@ describe('<ShortUrlForm />', () => {
       tags: [ 'tag_foo', 'tag_bar' ],
       customSlug: 'my-slug',
       domain: 'example.com',
-      validSince: formatISO(validSince),
+      validFrom: formatISO(validFrom),
       validUntil: formatISO(validUntil),
       maxVisits: 20,
       findIfExists: false,
