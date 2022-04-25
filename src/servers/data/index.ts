@@ -5,11 +5,11 @@ export interface ServerData {
   name: string;
   url: string;
   apiKey: string;
+  autoConnect?: boolean;
 }
 
 export interface ServerWithId extends ServerData {
   id: string;
-  autoConnect?: boolean;
 }
 
 export interface ReachableServer extends ServerWithId {

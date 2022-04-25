@@ -29,7 +29,7 @@ const provideServices = (bottle: Bottle, connect: ConnectDecorator) => {
 
   bottle.serviceFactory('Home', () => Home);
   bottle.decorator('Home', withoutSelectedServer);
-  bottle.decorator('Home', connect([], ['resetSelectedServer']));
+  bottle.decorator('Home', connect(['servers'], ['resetSelectedServer']));
 
   bottle.serviceFactory(
     'MenuLayout',

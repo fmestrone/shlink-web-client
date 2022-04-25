@@ -27,7 +27,7 @@ describe('<App />', () => {
   const createWrapper = () => {
     wrapper = shallow(
       <App
-        fetchServers={(auth) => { }}
+        fetchServers={(auth) => { if (auth == null) { return null; } return null; }} // TODO
         servers={{}}
         settings={Mock.all<Settings>()}
         appUpdated={false}
