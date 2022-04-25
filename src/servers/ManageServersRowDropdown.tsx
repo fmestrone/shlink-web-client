@@ -13,6 +13,7 @@ import { DropdownBtnMenu } from '../utils/DropdownBtnMenu';
 import { useToggle } from '../utils/helpers/hooks';
 import { DeleteServerModalProps } from './DeleteServerModal';
 import { ServerWithId } from './data';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface ManageServersRowDropdownProps {
   server: ServerWithId;
@@ -25,8 +26,8 @@ interface ManageServersRowDropdownConnectProps extends ManageServersRowDropdownP
 export const ManageServersRowDropdown = (
   DeleteServerModal: FC<DeleteServerModalProps>,
 ): FC<ManageServersRowDropdownConnectProps> => ({ server, setAutoConnect }) => {
-  const [ isMenuOpen, toggleMenu ] = useToggle();
-  const [ isModalOpen,, showModal, hideModal ] = useToggle();
+  const [isMenuOpen, toggleMenu] = useToggle();
+  const [isModalOpen,, showModal, hideModal] = useToggle();
   const serverUrl = `/server/${server.id}`;
   const { autoConnect: isAutoConnect } = server;
   const autoConnectIcon = isAutoConnect ? toggleOffIcon : toggleOnIcon;
@@ -34,17 +35,17 @@ export const ManageServersRowDropdown = (
   return (
     <DropdownBtnMenu isOpen={isMenuOpen} toggle={toggleMenu}>
       <DropdownItem tag={Link} to={serverUrl}>
-        <FontAwesomeIcon icon={connectIcon} fixedWidth /> Connect
+        <FontAwesomeIcon icon={connectIcon as IconProp} fixedWidth /> Connect
       </DropdownItem>
       <DropdownItem tag={Link} to={`${serverUrl}/edit`}>
-        <FontAwesomeIcon icon={editIcon} fixedWidth /> Edit server
+        <FontAwesomeIcon icon={editIcon as IconProp} fixedWidth /> Edit server
       </DropdownItem>
       <DropdownItem onClick={() => setAutoConnect(server, !server.autoConnect)}>
-        <FontAwesomeIcon icon={autoConnectIcon} fixedWidth /> {isAutoConnect ? 'Do not a' : 'A'}uto-connect
+        <FontAwesomeIcon icon={autoConnectIcon as IconProp} fixedWidth /> {isAutoConnect ? 'Do not a' : 'A'}uto-connect
       </DropdownItem>
       <DropdownItem divider />
       <DropdownItem className="dropdown-item--danger" onClick={showModal}>
-        <FontAwesomeIcon icon={deleteIcon} fixedWidth /> Remove server
+        <FontAwesomeIcon icon={deleteIcon as IconProp} fixedWidth /> Remove server
       </DropdownItem>
 
       <DeleteServerModal redirectHome={false} server={server} isOpen={isModalOpen} toggle={hideModal} />

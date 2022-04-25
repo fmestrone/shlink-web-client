@@ -4,6 +4,7 @@ import { min, splitEvery } from 'ramda';
 import { faCheck as checkIcon, faRobot as botIcon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UncontrolledTooltip } from 'reactstrap';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import SimplePaginator from '../common/SimplePaginator';
 import SearchField from '../utils/SearchField';
 import { determineOrderDir, Order, sortList } from '../utils/helpers/ordering';
@@ -37,7 +38,7 @@ const searchVisits = (searchTerm: string, visits: NormalizedVisit[]) =>
   visits.filter((visit) => visitMatchesSearch(visit, searchTerm));
 const sortVisits = (order: VisitsOrder, visits: NormalizedVisit[]) => sortList<NormalizedVisit>(visits, order as any);
 const calculateVisits = (allVisits: NormalizedVisit[], searchTerm: string | undefined, order: VisitsOrder) => {
-  const filteredVisits = searchTerm ? searchVisits(searchTerm, allVisits) : [ ...allVisits ];
+  const filteredVisits = searchTerm ? searchVisits(searchTerm, allVisits) : [...allVisits];
   const sortedVisits = sortVisits(order, filteredVisits);
   const total = sortedVisits.length;
   const visitsGroups = splitEvery(PAGE_SIZE, sortedVisits);
@@ -56,12 +57,12 @@ const VisitsTable = ({
   const headerCellsClass = 'visits-table__header-cell visits-table__sticky';
   const matchMobile = () => matchMedia('(max-width: 767px)').matches;
 
-  const [ isMobileDevice, setIsMobileDevice ] = useState(matchMobile());
-  const [ searchTerm, setSearchTerm ] = useState<string | undefined>(undefined);
-  const [ order, setOrder ] = useState<VisitsOrder>({});
-  const resultSet = useMemo(() => calculateVisits(visits, searchTerm, order), [ searchTerm, order ]);
+  const [isMobileDevice, setIsMobileDevice] = useState(matchMobile());
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
+  const [order, setOrder] = useState<VisitsOrder>({});
+  const resultSet = useMemo(() => calculateVisits(visits, searchTerm, order), [searchTerm, order]);
   const isFirstLoad = useRef(true);
-  const [ page, setPage ] = useState(1);
+  const [page, setPage] = useState(1);
   const end = page * PAGE_SIZE;
   const start = end - PAGE_SIZE;
   const supportsBots = supportsBotVisits(selectedServer);
@@ -84,7 +85,7 @@ const VisitsTable = ({
 
     !isFirstLoad.current && setSelectedVisits([]);
     isFirstLoad.current = false;
-  }, [ searchTerm ]);
+  }, [searchTerm]);
 
   return (
     <div className="table-responsive-md">
@@ -97,11 +98,11 @@ const VisitsTable = ({
                 selectedVisits.length < resultSet.total ? resultSet.visitsGroups.flat() : [],
               )}
             >
-              <FontAwesomeIcon icon={checkIcon} className={classNames({ 'text-primary': selectedVisits.length > 0 })} />
+              <FontAwesomeIcon icon={checkIcon as IconProp} className={classNames({ 'text-primary': selectedVisits.length > 0 })} />
             </th>
             {supportsBots && (
               <th className={`${headerCellsClass} text-center`} onClick={orderByColumn('potentialBot')}>
-                <FontAwesomeIcon icon={botIcon} />
+                <FontAwesomeIcon icon={botIcon as IconProp} />
                 {renderOrderIcon('potentialBot')}
               </th>
             )}
@@ -159,17 +160,17 @@ const VisitsTable = ({
                 style={{ cursor: 'pointer' }}
                 className={classNames({ 'table-active': isSelected })}
                 onClick={() => setSelectedVisits(
-                  isSelected ? selectedVisits.filter((v) => v !== visit) : [ ...selectedVisits, visit ],
+                  isSelected ? selectedVisits.filter((v) => v !== visit) : [...selectedVisits, visit],
                 )}
               >
                 <td className="text-center">
-                  {isSelected && <FontAwesomeIcon icon={checkIcon} className="text-primary" />}
+                  {isSelected && <FontAwesomeIcon icon={checkIcon as IconProp} className="text-primary" />}
                 </td>
                 {supportsBots && (
                   <td className="text-center">
                     {visit.potentialBot && (
                       <>
-                        <FontAwesomeIcon icon={botIcon} id={`botIcon${index}`} />
+                        <FontAwesomeIcon icon={botIcon as IconProp} id={`botIcon${index}`} />
                         <UncontrolledTooltip placement="right" target={`botIcon${index}`}>
                           Potentially a visit from a bot or crawler
                         </UncontrolledTooltip>

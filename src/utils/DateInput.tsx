@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt as calendarIcon } from '@fortawesome/free-regular-svg-icons';
 import classNames from 'classnames';
 import './DateInput.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export type DateInputProps = ReactDatePickerProps;
 
@@ -24,7 +25,7 @@ const DateInput = (props: DateInputProps) => {
       />
       {showCalendarIcon && (
         <FontAwesomeIcon
-          icon={calendarIcon}
+          icon={calendarIcon as IconProp}
           className="date-input-container__icon"
           onClick={() => ref.current?.input.focus()}
         />

@@ -5,6 +5,7 @@ import { faSyncAlt as reloadIcon } from '@fortawesome/free-solid-svg-icons';
 import { SimpleCard } from '../utils/SimpleCard';
 import { useToggle } from '../utils/helpers/hooks';
 import './AppUpdateBanner.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 interface AppUpdateBannerProps {
   isOpen: boolean;
@@ -13,7 +14,7 @@ interface AppUpdateBannerProps {
 }
 
 export const AppUpdateBanner: FC<AppUpdateBannerProps> = ({ isOpen, toggle, forceUpdate }) => {
-  const [ isUpdating,, setUpdating ] = useToggle();
+  const [isUpdating,, setUpdating] = useToggle();
   const update = () => {
     setUpdating();
     forceUpdate();
@@ -25,7 +26,7 @@ export const AppUpdateBanner: FC<AppUpdateBannerProps> = ({ isOpen, toggle, forc
       <p className="mb-0">
         Restart it to enjoy the new features.
         <Button disabled={isUpdating} className="ms-2" color="secondary" size="sm" onClick={update}>
-          {!isUpdating && <>Restart now <FontAwesomeIcon icon={reloadIcon} className="ms-1" /></>}
+          {!isUpdating && <>Restart now <FontAwesomeIcon icon={reloadIcon as IconProp} className="ms-1" /></>}
           {isUpdating && <>Restarting...</>}
         </Button>
       </p>

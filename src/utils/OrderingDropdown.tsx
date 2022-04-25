@@ -1,6 +1,7 @@
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { toPairs } from 'ramda';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faSortAmountUp as sortAscIcon, faSortAmountDown as sortDescIcon } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import { determineOrderDir, Order, OrderDir } from './helpers/ordering';
@@ -38,12 +39,12 @@ export function OrderingDropdown<T extends string = string>(
         end={right}
         className={classNames('w-100', { 'ordering-dropdown__menu--link': !isButton })}
       >
-        {toPairs(items).map(([ fieldKey, fieldValue ]) => (
+        {toPairs(items).map(([fieldKey, fieldValue]) => (
           <DropdownItem key={fieldKey} active={order.field === fieldKey} onClick={handleItemClick(fieldKey as T)}>
             {fieldValue}
             {order.field === fieldKey && (
               <FontAwesomeIcon
-                icon={order.dir === 'ASC' ? sortAscIcon : sortDescIcon}
+                icon={order.dir === 'ASC' ? sortAscIcon as IconProp : sortDescIcon as IconProp}
                 className="ordering-dropdown__sort-icon"
               />
             )}

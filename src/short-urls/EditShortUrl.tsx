@@ -16,6 +16,7 @@ import { ShortUrlFormProps } from './ShortUrlForm';
 import { ShortUrlDetail } from './reducers/shortUrlDetail';
 import { EditShortUrlData, ShortUrl, ShortUrlData } from './data';
 import { ShortUrlEdition } from './reducers/shortUrlEdition';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 interface EditShortUrlConnectProps {
   settings: Settings;
@@ -64,9 +65,9 @@ export const EditShortUrl = (ShortUrlForm: FC<ShortUrlFormProps>) => ({
   const { domain } = parseQuery<{ domain?: string }>(search);
   const initialState = useMemo(
     () => getInitialState(shortUrl, shortUrlCreationSettings),
-    [ shortUrl, shortUrlCreationSettings ],
+    [shortUrl, shortUrlCreationSettings],
   );
-  const [ savingSucceeded,, isSuccessful, isNotSuccessful ] = useToggle();
+  const [savingSucceeded,, isSuccessful, isNotSuccessful] = useToggle();
 
   useEffect(() => {
     params.shortCode && getShortUrlDetail(params.shortCode, domain);
@@ -90,7 +91,7 @@ export const EditShortUrl = (ShortUrlForm: FC<ShortUrlFormProps>) => ({
         <Card body>
           <h2 className="d-sm-flex justify-content-between align-items-center mb-0">
             <Button color="link" size="lg" className="p-0 me-3" onClick={goBack}>
-              <FontAwesomeIcon icon={faArrowLeft} />
+              <FontAwesomeIcon icon={faArrowLeft as IconProp} />
             </Button>
             <span className="text-center">
               <small>Edit <ExternalLink href={shortUrl?.shortUrl ?? ''} /></small>

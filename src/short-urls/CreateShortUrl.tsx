@@ -42,7 +42,7 @@ const CreateShortUrl = (ShortUrlForm: FC<ShortUrlFormProps>, CreateShortUrlResul
   basicMode = false,
   settings: { shortUrlCreation: shortUrlCreationSettings },
 }: CreateShortUrlConnectProps) => {
-  const initialState = useMemo(() => getInitialState(shortUrlCreationSettings), [ shortUrlCreationSettings ]);
+  const initialState = useMemo(() => getInitialState(shortUrlCreationSettings), [shortUrlCreationSettings]);
 
   return (
     <>

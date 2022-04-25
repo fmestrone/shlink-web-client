@@ -13,6 +13,7 @@ import { Time } from '../../utils/Time';
 import ShortUrlVisitsCount from './ShortUrlVisitsCount';
 import { ShortUrlsRowMenuProps } from './ShortUrlsRowMenu';
 import './ShortUrlsRow.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface ShortUrlsRowProps {
   onTagClick?: (tag: string) => void;
@@ -25,8 +26,8 @@ const ShortUrlsRow = (
   colorGenerator: ColorGenerator,
   useStateFlagTimeout: StateFlagTimeout,
 ) => ({ shortUrl, selectedServer, onTagClick }: ShortUrlsRowProps) => {
-  const [ copiedToClipboard, setCopiedToClipboard ] = useStateFlagTimeout();
-  const [ active, setActive ] = useStateFlagTimeout(false, 500);
+  const [copiedToClipboard, setCopiedToClipboard] = useStateFlagTimeout();
+  const [active, setActive] = useStateFlagTimeout(false, 500);
   const isFirstRun = useRef(true);
 
   const renderTags = (tags: string[]) => {
@@ -50,7 +51,7 @@ const ShortUrlsRow = (
     } else {
       setActive();
     }
-  }, [ shortUrl.visitsCount ]);
+  }, [shortUrl.visitsCount]);
 
   return (
     <tr className="responsive-table__row">
@@ -64,7 +65,7 @@ const ShortUrlsRow = (
           <span className="badge bg-warning text-black short-urls-row__copy-hint" hidden={!copiedToClipboard}>
             Copied short URL!
           </span>
-          {shortUrl.password && <FontAwesomeIcon icon={keyIcon} className="ms-2 url-lock-icon" />}
+          {shortUrl.password && <FontAwesomeIcon icon={keyIcon as IconProp} className="ms-2 url-lock-icon" />}
         </span>
       </td>
       <td className="responsive-table__cell short-urls-row__cell short-urls-row__cell--break" data-th={`${shortUrl.title ? 'Title' : 'Long URL'}`}>

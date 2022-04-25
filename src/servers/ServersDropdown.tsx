@@ -3,6 +3,7 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from
 import { Link } from 'react-router-dom';
 import { faPlus as plusIcon, faServer as serverIcon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getServerId, SelectedServer, ServersMap } from './data';
 
 export interface ServersDropdownProps {
@@ -17,7 +18,7 @@ const ServersDropdown = ({ servers, selectedServer }: ServersDropdownProps) => {
     if (isEmpty(serversList)) {
       return (
         <DropdownItem tag={Link} to="/server/create">
-          <FontAwesomeIcon icon={plusIcon} /> <span className="ms-1">Add a server</span>
+          <FontAwesomeIcon icon={plusIcon as IconProp} /> <span className="ms-1">Add a server</span>
         </DropdownItem>
       );
     }
@@ -31,7 +32,7 @@ const ServersDropdown = ({ servers, selectedServer }: ServersDropdownProps) => {
         ))}
         <DropdownItem divider />
         <DropdownItem tag={Link} to="/manage-servers">
-          <FontAwesomeIcon icon={serverIcon} /> <span className="ms-1">Manage servers</span>
+          <FontAwesomeIcon icon={serverIcon as IconProp} /> <span className="ms-1">Manage servers</span>
         </DropdownItem>
       </>
     );
@@ -40,7 +41,7 @@ const ServersDropdown = ({ servers, selectedServer }: ServersDropdownProps) => {
   return (
     <UncontrolledDropdown nav inNavbar>
       <DropdownToggle nav caret>
-        <FontAwesomeIcon icon={serverIcon} /> <span className="ms-1">Servers</span>
+        <FontAwesomeIcon icon={serverIcon as IconProp} /> <span className="ms-1">Servers</span>
       </DropdownToggle>
       <DropdownMenu end style={{ right: 0 }}>{renderServers()}</DropdownMenu>
     </UncontrolledDropdown>

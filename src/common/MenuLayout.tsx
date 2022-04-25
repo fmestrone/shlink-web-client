@@ -10,6 +10,7 @@ import { isReachableServer } from '../servers/data';
 import NotFound from './NotFound';
 import { AsideMenuProps } from './AsideMenu';
 import './MenuLayout.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 interface MenuLayoutProps {
   sidebarPresent: Function;
@@ -31,10 +32,10 @@ const MenuLayout = (
   ManageDomains: FC,
 ) => withSelectedServer<MenuLayoutProps>(({ selectedServer, sidebarNotPresent, sidebarPresent }) => {
   const location = useLocation();
-  const [ sidebarVisible, toggleSidebar, showSidebar, hideSidebar ] = useToggle();
+  const [sidebarVisible, toggleSidebar, showSidebar, hideSidebar] = useToggle();
   const showContent = isReachableServer(selectedServer);
 
-  useEffect(() => hideSidebar(), [ location ]);
+  useEffect(() => hideSidebar(), [location]);
   useEffect(() => {
     showContent && sidebarPresent();
 
@@ -53,7 +54,7 @@ const MenuLayout = (
 
   return (
     <>
-      <FontAwesomeIcon icon={burgerIcon} className={burgerClasses} onClick={toggleSidebar} />
+      <FontAwesomeIcon icon={burgerIcon as IconProp} className={burgerClasses} onClick={toggleSidebar} />
 
       <div {...swipeableProps} className="menu-layout__swipeable">
         <div className="menu-layout__swipeable-inner">

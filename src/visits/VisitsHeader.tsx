@@ -2,6 +2,7 @@ import { Button, Card } from 'reactstrap';
 import { FC, ReactNode } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ShortUrlVisitsCount from '../short-urls/helpers/ShortUrlVisitsCount';
 import { ShortUrl } from '../short-urls/data';
 import { Visit } from './types';
@@ -18,7 +19,7 @@ const VisitsHeader: FC<VisitsHeaderProps> = ({ visits, goBack, shortUrl, childre
     <Card body>
       <h2 className="d-flex justify-content-between align-items-center mb-0">
         <Button color="link" size="lg" className="p-0 me-3" onClick={goBack}>
-          <FontAwesomeIcon icon={faArrowLeft} />
+          <FontAwesomeIcon icon={faArrowLeft as IconProp} />
         </Button>
         <span className="text-center d-none d-sm-block">
           <small>{title}</small>

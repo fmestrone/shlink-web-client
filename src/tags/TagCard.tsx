@@ -10,6 +10,7 @@ import { getServerId, SelectedServer } from '../servers/data';
 import TagBullet from './helpers/TagBullet';
 import { NormalizedTag, TagModalProps } from './data';
 import './TagCard.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface TagCardProps {
   tag: NormalizedTag;
@@ -25,9 +26,9 @@ const TagCard = (
   EditTagModal: FC<TagModalProps>,
   colorGenerator: ColorGenerator,
 ) => ({ tag, selectedServer, displayed, toggle }: TagCardProps) => {
-  const [ isDeleteModalOpen, toggleDelete ] = useToggle();
-  const [ isEditModalOpen, toggleEdit ] = useToggle();
-  const [ hasTitle,, displayTitle ] = useToggle();
+  const [isDeleteModalOpen, toggleDelete] = useToggle();
+  const [isEditModalOpen, toggleEdit] = useToggle();
+  const [hasTitle,, displayTitle] = useToggle();
   const titleRef = useRef<HTMLElement>();
   const serverId = getServerId(selectedServer);
 
@@ -35,16 +36,16 @@ const TagCard = (
     if (isTruncated(titleRef.current)) {
       displayTitle();
     }
-  }, [ titleRef.current ]);
+  }, [titleRef.current]);
 
   return (
     <Card className="tag-card">
       <CardHeader className="tag-card__header">
         <Button color="link" size="sm" className="tag-card__btn tag-card__btn--last" onClick={toggleDelete}>
-          <FontAwesomeIcon icon={deleteIcon} />
+          <FontAwesomeIcon icon={deleteIcon as IconProp} />
         </Button>
         <Button color="link" size="sm" className="tag-card__btn" onClick={toggleEdit}>
-          <FontAwesomeIcon icon={editIcon} />
+          <FontAwesomeIcon icon={editIcon as IconProp} />
         </Button>
         <h5
           className="tag-card__tag-title text-ellipsis"
@@ -64,14 +65,14 @@ const TagCard = (
             to={`/server/${serverId}/list-short-urls/1?tags=${encodeURIComponent(tag.tag)}`}
             className="btn btn-outline-secondary btn-block d-flex justify-content-between align-items-center mb-1"
           >
-            <span className="text-ellipsis"><FontAwesomeIcon icon={faLink} className="me-2" />Short URLs</span>
+            <span className="text-ellipsis"><FontAwesomeIcon icon={faLink as IconProp} className="me-2" />Short URLs</span>
             <b>{prettify(tag.shortUrls)}</b>
           </Link>
           <Link
             to={`/server/${serverId}/tag/${tag.tag}/visits`}
             className="btn btn-outline-secondary btn-block d-flex justify-content-between align-items-center"
           >
-            <span className="text-ellipsis"><FontAwesomeIcon icon={faEye} className="me-2" />Visits</span>
+            <span className="text-ellipsis"><FontAwesomeIcon icon={faEye as IconProp} className="me-2" />Visits</span>
             <b>{prettify(tag.visits)}</b>
           </Link>
         </CardBody>

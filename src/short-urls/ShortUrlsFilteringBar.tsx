@@ -20,6 +20,7 @@ import { useShortUrlsQuery } from './helpers/hooks';
 import { SHORT_URLS_ORDERABLE_FIELDS, ShortUrlsOrder, ShortUrlsOrderableFields } from './data';
 import { ExportShortUrlsBtnProps } from './helpers/ExportShortUrlsBtn';
 import './ShortUrlsFilteringBar.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface ShortUrlsFilteringProps {
   selectedServer: SelectedServer;
@@ -29,23 +30,23 @@ export interface ShortUrlsFilteringProps {
   shortUrlsAmount?: number;
 }
 
-const dateOrNull = (date?: string) => date ? parseISO(date) : null;
+const dateOrNull = (date?: string) => (date ? parseISO(date) : null);
 
 const ShortUrlsFilteringBar = (
   colorGenerator: ColorGenerator,
   ExportShortUrlsBtn: FC<ExportShortUrlsBtnProps>,
 ): FC<ShortUrlsFilteringProps> => ({ selectedServer, className, shortUrlsAmount, order, handleOrderBy }) => {
-  const [{ search, tags, startDate, endDate, tagsMode = 'any' }, toFirstPage ] = useShortUrlsQuery();
+  const [{ search, tags, startDate, endDate, tagsMode = 'any' }, toFirstPage] = useShortUrlsQuery();
   const setDates = pipe(
-    ({ startDate, endDate }: DateRange) => ({
-      startDate: formatIsoDate(startDate) ?? undefined,
-      endDate: formatIsoDate(endDate) ?? undefined,
+    ({ startDate: theStartDate, endDate: theEndDate }: DateRange) => ({
+      startDate: formatIsoDate(theStartDate) ?? undefined,
+      endDate: formatIsoDate(theEndDate) ?? undefined,
     }),
     toFirstPage,
   );
   const setSearch = pipe(
-    (searchTerm: string) => isEmpty(searchTerm) ? undefined : searchTerm,
-    (search) => toFirstPage({ search }),
+    (searchTerm: string) => (isEmpty(searchTerm) ? undefined : searchTerm),
+    (searchTerm) => toFirstPage({ search: searchTerm }),
   );
   const removeTag = pipe(
     (tag: string) => tags.filter((selectedTag) => selectedTag !== tag),
@@ -53,8 +54,8 @@ const ShortUrlsFilteringBar = (
   );
   const canChangeTagsMode = supportsAllTagsFiltering(selectedServer);
   const toggleTagsMode = pipe(
-    () => tagsMode === 'any' ? 'all' : 'any',
-    (tagsMode) => toFirstPage({ tagsMode }),
+    () => (tagsMode === 'any' ? 'all' : 'any'),
+    (mode) => toFirstPage({ tagsMode: mode }),
   );
 
   return (
@@ -93,7 +94,7 @@ const ShortUrlsFilteringBar = (
               </TooltipToggleSwitch>
             </div>
           )}
-          <FontAwesomeIcon icon={tagsIcon} className="short-urls-filtering-bar__tags-icon me-1" />
+          <FontAwesomeIcon icon={tagsIcon as IconProp} className="short-urls-filtering-bar__tags-icon me-1" />
           {tags.map((tag) =>
             <Tag colorGenerator={colorGenerator} key={tag} text={tag} clearable onClose={() => removeTag(tag)} />)}
         </h4>

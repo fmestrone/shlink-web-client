@@ -7,6 +7,7 @@ import {
   faCheck as checkIcon,
   faCircleNotch as loadingStatusIcon,
 } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { MediaMatcher } from '../../utils/types';
 import { DomainStatus } from '../data';
 
@@ -18,7 +19,7 @@ interface DomainStatusIconProps {
 export const DomainStatusIcon: FC<DomainStatusIconProps> = ({ status, matchMedia = window.matchMedia }) => {
   const ref = useRef<HTMLSpanElement>();
   const matchesMobile = () => matchMedia('(max-width: 991px)').matches;
-  const [ isMobile, setIsMobile ] = useState<boolean>(matchesMobile());
+  const [isMobile, setIsMobile] = useState<boolean>(matchesMobile());
 
   useEffect(() => {
     const listener = () => setIsMobile(matchesMobile());
@@ -29,7 +30,7 @@ export const DomainStatusIcon: FC<DomainStatusIconProps> = ({ status, matchMedia
   }, []);
 
   if (status === 'validating') {
-    return <FontAwesomeIcon fixedWidth icon={loadingStatusIcon} spin />;
+    return <FontAwesomeIcon fixedWidth icon={loadingStatusIcon as IconProp} spin />;
   }
 
   return (
@@ -40,8 +41,8 @@ export const DomainStatusIcon: FC<DomainStatusIconProps> = ({ status, matchMedia
         }}
       >
         {status === 'valid'
-          ? <FontAwesomeIcon fixedWidth icon={checkIcon} className="text-muted" />
-          : <FontAwesomeIcon fixedWidth icon={invalidIcon} className="text-danger" />}
+          ? <FontAwesomeIcon fixedWidth icon={checkIcon as IconProp} className="text-muted" />
+          : <FontAwesomeIcon fixedWidth icon={invalidIcon as IconProp} className="text-danger" />}
       </span>
       <UncontrolledTooltip
         target={(() => ref.current) as any}

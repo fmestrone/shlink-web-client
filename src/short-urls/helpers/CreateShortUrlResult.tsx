@@ -10,6 +10,7 @@ import { StateFlagTimeout } from '../../utils/helpers/hooks';
 import { Result } from '../../utils/Result';
 import './CreateShortUrlResult.scss';
 import { ShlinkApiError } from '../../api/ShlinkApiError';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface CreateShortUrlResultProps extends ShortUrlCreation {
   resetCreateShortUrl: () => void;
@@ -19,7 +20,7 @@ export interface CreateShortUrlResultProps extends ShortUrlCreation {
 const CreateShortUrlResult = (useStateFlagTimeout: StateFlagTimeout) => (
   { error, errorData, result, resetCreateShortUrl, canBeClosed = false }: CreateShortUrlResultProps,
 ) => {
-  const [ showCopyTooltip, setShowCopyTooltip ] = useStateFlagTimeout();
+  const [showCopyTooltip, setShowCopyTooltip] = useStateFlagTimeout();
 
   useEffect(() => {
     resetCreateShortUrl();
@@ -28,7 +29,7 @@ const CreateShortUrlResult = (useStateFlagTimeout: StateFlagTimeout) => (
   if (error) {
     return (
       <Result type="error" className="mt-3">
-        {canBeClosed && <FontAwesomeIcon icon={closeIcon} className="float-end pointer" onClick={resetCreateShortUrl} />}
+        {canBeClosed && <FontAwesomeIcon icon={closeIcon as IconProp} className="float-end pointer" onClick={resetCreateShortUrl} />}
         <ShlinkApiError errorData={errorData} fallbackMessage="An error occurred while creating the URL :(" />
       </Result>
     );
@@ -42,7 +43,7 @@ const CreateShortUrlResult = (useStateFlagTimeout: StateFlagTimeout) => (
 
   return (
     <Result type="success" className="mt-3">
-      {canBeClosed && <FontAwesomeIcon icon={closeIcon} className="float-end pointer" onClick={resetCreateShortUrl} />}
+      {canBeClosed && <FontAwesomeIcon icon={closeIcon as IconProp} className="float-end pointer" onClick={resetCreateShortUrl} />}
       <b>Great!</b> The short URL is <b>{shortUrl}</b>
 
       <CopyToClipboard text={shortUrl} onCopy={setShowCopyTooltip}>
@@ -51,7 +52,7 @@ const CreateShortUrlResult = (useStateFlagTimeout: StateFlagTimeout) => (
           id="copyBtn"
           type="button"
         >
-          <FontAwesomeIcon icon={copyIcon} /> Copy
+          <FontAwesomeIcon icon={copyIcon as IconProp} /> Copy
         </button>
       </CopyToClipboard>
 

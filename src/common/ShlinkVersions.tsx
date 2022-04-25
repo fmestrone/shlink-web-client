@@ -1,5 +1,6 @@
 import { pipe } from 'ramda';
 import { ExternalLink } from 'react-external-link';
+import { useAuth } from 'react-oidc-context';
 import { versionToPrintable, versionToSemVer } from '../utils/helpers/version';
 import { isReachableServer, SelectedServer } from '../servers/data';
 
@@ -19,13 +20,17 @@ const VersionLink = ({ project, version }: { project: 'shlink' | 'shlink-web-cli
 
 const ShlinkVersions = ({ selectedServer, clientVersion = SHLINK_WEB_CLIENT_VERSION }: ShlinkVersionsProps) => {
   const normalizedClientVersion = normalizeVersion(clientVersion);
+  const auth = useAuth();
 
   return (
     <small className="text-muted">
-      {isReachableServer(selectedServer) &&
-        <>Server: <VersionLink project="shlink" version={selectedServer.printableVersion} /> - </>
-      }
-      Client: <VersionLink project="shlink-web-client" version={normalizedClientVersion} />
+      <>Hello <b>{auth.user?.profile.name}</b>! &middot; You&apos;re using: </>
+      <i>{isReachableServer(selectedServer) && (
+        <>server=<VersionLink project="shlink" version={selectedServer.printableVersion} /> &ndash; </>
+      )}
+        client=<VersionLink project="shlink-web-client" version={normalizedClientVersion} />
+      </i>
+      <> &middot; <ExternalLink href="#" onClick={() => void auth.removeUser()} className="text-muted"><b>Logout</b></ExternalLink> </>
     </small>
   );
 };

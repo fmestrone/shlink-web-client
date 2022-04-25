@@ -10,6 +10,7 @@ import { useToggle } from '../utils/helpers/hooks';
 import { DropdownBtnMenu } from '../utils/DropdownBtnMenu';
 import TagBullet from './helpers/TagBullet';
 import { NormalizedTag, TagModalProps } from './data';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface TagsTableRowProps {
   tag: NormalizedTag;
@@ -21,9 +22,9 @@ export const TagsTableRow = (
   EditTagModal: FC<TagModalProps>,
   colorGenerator: ColorGenerator,
 ) => ({ tag, selectedServer }: TagsTableRowProps) => {
-  const [ isDeleteModalOpen, toggleDelete ] = useToggle();
-  const [ isEditModalOpen, toggleEdit ] = useToggle();
-  const [ isDropdownOpen, toggleDropdown ] = useToggle();
+  const [isDeleteModalOpen, toggleDelete] = useToggle();
+  const [isEditModalOpen, toggleEdit] = useToggle();
+  const [isDropdownOpen, toggleDropdown] = useToggle();
   const serverId = getServerId(selectedServer);
 
   return (
@@ -44,10 +45,10 @@ export const TagsTableRow = (
       <td className="responsive-table__cell text-lg-end">
         <DropdownBtnMenu toggle={toggleDropdown} isOpen={isDropdownOpen}>
           <DropdownItem onClick={toggleEdit}>
-            <FontAwesomeIcon icon={editIcon} fixedWidth className="me-1" /> Edit
+            <FontAwesomeIcon icon={editIcon as IconProp} fixedWidth className="me-1" /> Edit
           </DropdownItem>
           <DropdownItem onClick={toggleDelete}>
-            <FontAwesomeIcon icon={deleteIcon} fixedWidth className="me-1" /> Delete
+            <FontAwesomeIcon icon={deleteIcon as IconProp} fixedWidth className="me-1" /> Delete
           </DropdownItem>
         </DropdownBtnMenu>
       </td>

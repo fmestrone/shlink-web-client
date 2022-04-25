@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useToggle } from '../utils/helpers/hooks';
 import { DeleteServerModalProps } from './DeleteServerModal';
 import { ServerWithId } from './data';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface DeleteServerButtonProps {
   server: ServerWithId;
@@ -14,12 +15,12 @@ export interface DeleteServerButtonProps {
 const DeleteServerButton = (DeleteServerModal: FC<DeleteServerModalProps>): FC<DeleteServerButtonProps> => (
   { server, className, children, textClassName },
 ) => {
-  const [ isModalOpen, , showModal, hideModal ] = useToggle();
+  const [isModalOpen, , showModal, hideModal] = useToggle();
 
   return (
     <>
       <span className={className} onClick={showModal}>
-        {!children && <FontAwesomeIcon fixedWidth icon={deleteIcon} />}
+        {!children && <FontAwesomeIcon fixedWidth icon={deleteIcon as IconProp} />}
         <span className={textClassName}>{children ?? 'Remove this server'}</span>
       </span>
 

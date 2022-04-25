@@ -47,10 +47,10 @@ interface VisitsNavLinkProps {
 type Section = 'byTime' | 'byContext' | 'byLocation' | 'list';
 
 const sections: Record<Section, VisitsNavLinkProps> = {
-  byTime: { title: 'By time', subPath: 'by-time', icon: faCalendarAlt },
-  byContext: { title: 'By context', subPath: 'by-context', icon: faChartPie },
-  byLocation: { title: 'By location', subPath: 'by-location', icon: faMapMarkedAlt },
-  list: { title: 'List', subPath: 'list', icon: faList },
+  byTime: { title: 'By time', subPath: 'by-time', icon: faCalendarAlt as IconDefinition },
+  byContext: { title: 'By context', subPath: 'by-context', icon: faChartPie as IconDefinition },
+  byLocation: { title: 'By location', subPath: 'by-location', icon: faMapMarkedAlt as IconDefinition },
+  list: { title: 'List', subPath: 'list', icon: faList as IconDefinition },
 };
 
 let selectedBar: string | undefined;
@@ -67,13 +67,13 @@ const VisitsStats: FC<VisitsStatsProps> = ({
   isOrphanVisits = false,
 }) => {
   const { visits, loading, loadingLarge, error, errorData, progress, fallbackInterval } = visitsInfo;
-  const [ initialInterval, setInitialInterval ] = useState<DateInterval>(
+  const [initialInterval, setInitialInterval] = useState<DateInterval>(
     fallbackInterval ?? settings.visits?.defaultInterval ?? 'last30Days',
   );
-  const [ dateRange, setDateRange ] = useState<DateRange>(intervalToDateRange(initialInterval));
-  const [ highlightedVisits, setHighlightedVisits ] = useState<NormalizedVisit[]>([]);
-  const [ highlightedLabel, setHighlightedLabel ] = useState<string | undefined>();
-  const [ visitsFilter, setVisitsFilter ] = useState<VisitsFilter>({});
+  const [dateRange, setDateRange] = useState<DateRange>(intervalToDateRange(initialInterval));
+  const [highlightedVisits, setHighlightedVisits] = useState<NormalizedVisit[]>([]);
+  const [highlightedLabel, setHighlightedLabel] = useState<string | undefined>();
+  const [visitsFilter, setVisitsFilter] = useState<VisitsFilter>({});
   const botsSupported = supportsBotVisits(selectedServer);
   const isFirstLoad = useRef(true);
 
@@ -82,10 +82,10 @@ const VisitsStats: FC<VisitsStatsProps> = ({
 
     return !subPath ? `${query}` : `${subPath}${query}`;
   };
-  const normalizedVisits = useMemo(() => normalizeVisits(visits), [ visits ]);
+  const normalizedVisits = useMemo(() => normalizeVisits(visits), [visits]);
   const { os, browsers, referrers, countries, cities, citiesForMap, visitedUrls } = useMemo(
     () => processStatsFromVisits(normalizedVisits),
-    [ normalizedVisits ],
+    [normalizedVisits],
   );
   const mapLocations = values(citiesForMap);
 
@@ -111,10 +111,10 @@ const VisitsStats: FC<VisitsStatsProps> = ({
   useEffect(() => {
     getVisits({ dateRange, filter: visitsFilter }, isFirstLoad.current);
     isFirstLoad.current = false;
-  }, [ dateRange, visitsFilter ]);
+  }, [dateRange, visitsFilter]);
   useEffect(() => {
     fallbackInterval && setInitialInterval(fallbackInterval);
-  }, [ fallbackInterval ]);
+  }, [fallbackInterval]);
 
   const renderVisitsContent = () => {
     if (loadingLarge) {
@@ -235,10 +235,9 @@ const VisitsStats: FC<VisitsStatsProps> = ({
                       stats={cities}
                       highlightedStats={highlightedVisitsToStats(highlightedVisits, 'city')}
                       highlightedLabel={highlightedLabel}
-                      extraHeaderContent={(activeCities: string[]) =>
-                        mapLocations.length > 0 &&
+                      extraHeaderContent={(activeCities: string[]) => mapLocations.length > 0 && (
                         <OpenMapModalBtn modalTitle="Cities" locations={mapLocations} activeCities={activeCities} />
-                      }
+                      )}
                       sortingItems={{
                         name: 'City name',
                         amount: 'Visits amount',

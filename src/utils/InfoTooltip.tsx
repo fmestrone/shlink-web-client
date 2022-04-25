@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle as infoIcon } from '@fortawesome/free-solid-svg-icons';
 import { UncontrolledTooltip } from 'reactstrap';
 import { Placement } from '@popperjs/core';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 interface InfoTooltipProps {
   className?: string;
@@ -18,7 +19,7 @@ export const InfoTooltip: FC<InfoTooltipProps> = ({ className = '', placement, c
   return (
     <>
       <span className={className} ref={refCallback}>
-        <FontAwesomeIcon icon={infoIcon} />
+        <FontAwesomeIcon icon={infoIcon as IconProp} />
       </span>
       <UncontrolledTooltip target={(() => ref.current) as any} placement={placement}>{children}</UncontrolledTooltip>
     </>

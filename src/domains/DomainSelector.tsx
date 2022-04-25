@@ -7,6 +7,7 @@ import { DropdownBtn } from '../utils/DropdownBtn';
 import { useToggle } from '../utils/helpers/hooks';
 import { DomainsList } from './reducers/domainsList';
 import './DomainSelector.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface DomainSelectorProps extends Omit<InputProps, 'onChange'> {
   value?: string;
@@ -19,7 +20,7 @@ interface DomainSelectorConnectProps extends DomainSelectorProps {
 }
 
 export const DomainSelector = ({ listDomains, value, domainsList, onChange }: DomainSelectorConnectProps) => {
-  const [ inputDisplayed,, showInput, hideInput ] = useToggle();
+  const [inputDisplayed,, showInput, hideInput] = useToggle();
   const { domains } = domainsList;
   const valueIsEmpty = isEmpty(value);
   const unselectDomain = () => onChange('');
@@ -42,7 +43,7 @@ export const DomainSelector = ({ listDomains, value, domainsList, onChange }: Do
         className="domains-dropdown__back-btn"
         onClick={pipe(unselectDomain, hideInput)}
       >
-        <FontAwesomeIcon icon={faUndo} />
+        <FontAwesomeIcon icon={faUndo as IconProp} />
       </Button>
       <UncontrolledTooltip target="backToDropdown" placement="left" trigger="hover">
         Existing domains
@@ -56,7 +57,7 @@ export const DomainSelector = ({ listDomains, value, domainsList, onChange }: Do
       {domains.map(({ domain, isDefault }) => (
         <DropdownItem
           key={domain}
-          active={value === domain || isDefault && valueIsEmpty}
+          active={(value === domain || isDefault) && valueIsEmpty}
           onClick={() => onChange(domain)}
         >
           {domain}

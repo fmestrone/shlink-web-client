@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch as searchIcon } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import './SearchField.scss';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const DEFAULT_SEARCH_INTERVAL = 500;
 let timer: NodeJS.Timeout | null;
@@ -16,7 +17,7 @@ interface SearchFieldProps {
 }
 
 const SearchField = ({ onChange, className, large = true, noBorder = false, initialValue = '' }: SearchFieldProps) => {
-  const [ searchTerm, setSearchTerm ] = useState(initialValue);
+  const [searchTerm, setSearchTerm] = useState(initialValue);
 
   const resetTimer = () => {
     timer && clearTimeout(timer);
@@ -45,7 +46,7 @@ const SearchField = ({ onChange, className, large = true, noBorder = false, init
         value={searchTerm}
         onChange={(e) => searchTermChanged(e.target.value)}
       />
-      <FontAwesomeIcon icon={searchIcon} className="search-field__icon" />
+      <FontAwesomeIcon icon={searchIcon as IconProp} className="search-field__icon" />
       <div
         className="close search-field__close btn-close"
         hidden={searchTerm === ''}

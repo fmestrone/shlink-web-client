@@ -3,6 +3,7 @@ import { faInfoCircle as infoIcon } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { useToggle } from '../utils/helpers/hooks';
 import './UseExistingIfFoundInfoIcon.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 const InfoModal = ({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) => (
   <Modal isOpen={isOpen} toggle={toggle} centered size="lg">
@@ -37,12 +38,12 @@ const InfoModal = ({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) 
 );
 
 const UseExistingIfFoundInfoIcon = () => {
-  const [ isModalOpen, toggleModal ] = useToggle();
+  const [isModalOpen, toggleModal] = useToggle();
 
   return (
     <>
       <span title="What does this mean?">
-        <FontAwesomeIcon icon={infoIcon} style={{ cursor: 'pointer' }} onClick={toggleModal} />
+        <FontAwesomeIcon icon={infoIcon as IconProp} style={{ cursor: 'pointer' }} onClick={toggleModal} />
       </span>
       <InfoModal isOpen={isModalOpen} toggle={toggleModal} />
     </>

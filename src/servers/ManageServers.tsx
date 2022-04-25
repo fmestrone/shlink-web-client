@@ -3,6 +3,7 @@ import { Button, Row } from 'reactstrap';
 import { faFileDownload as exportIcon, faPlus as plusIcon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { NoMenuLayout } from '../common/NoMenuLayout';
 import { SimpleCard } from '../utils/SimpleCard';
 import SearchField from '../utils/SearchField';
@@ -26,16 +27,16 @@ export const ManageServers = (
   ManageServersRow: FC<ManageServersRowProps>,
 ): FC<ManageServersProps> => ({ servers }) => {
   const allServers = Object.values(servers);
-  const [ serversList, setServersList ] = useState(allServers);
+  const [serversList, setServersList] = useState(allServers);
   const filterServers = (searchTerm: string) => setServersList(
     allServers.filter(({ name, url }) => `${name} ${url}`.match(searchTerm)),
   );
   const hasAutoConnect = serversList.some(({ autoConnect }) => !!autoConnect);
-  const [ errorImporting, setErrorImporting ] = useStateFlagTimeout(false, SHOW_IMPORT_MSG_TIME);
+  const [errorImporting, setErrorImporting] = useStateFlagTimeout(false, SHOW_IMPORT_MSG_TIME);
 
   useEffect(() => {
     setServersList(Object.values(servers));
-  }, [ servers ]);
+  }, [servers]);
 
   return (
     <NoMenuLayout>
@@ -46,13 +47,13 @@ export const ManageServers = (
           <ImportServersBtn className="flex-fill" onImportError={setErrorImporting}>Import servers</ImportServersBtn>
           {allServers.length > 0 && (
             <Button outline className="ms-2 flex-fill" onClick={async () => serversExporter.exportServers()}>
-              <FontAwesomeIcon icon={exportIcon} fixedWidth /> Export servers
+              <FontAwesomeIcon icon={exportIcon as IconProp} fixedWidth /> Export servers
             </Button>
           )}
         </div>
         <div className="col-md-6 text-md-end d-flex d-md-block">
           <Button outline color="primary" className="flex-fill" tag={Link} to="/server/create">
-            <FontAwesomeIcon icon={plusIcon} fixedWidth /> Add a server
+            <FontAwesomeIcon icon={plusIcon as IconProp} fixedWidth /> Add a server
           </Button>
         </div>
       </Row>
@@ -61,17 +62,17 @@ export const ManageServers = (
         <table className="table table-hover responsive-table mb-0">
           <thead className="responsive-table__header">
             <tr>
-              {hasAutoConnect && <th style={{ width: '50px' }} />}
+              {hasAutoConnect && <th aria-label="Auto-connect" style={{ width: '50px' }} />}
               <th>Name</th>
               <th>Base URL</th>
-              <th />
+              <th aria-label="Options" />
             </tr>
           </thead>
           <tbody>
             {!serversList.length && <tr className="text-center"><td colSpan={4}>No servers found.</td></tr>}
-            {serversList.map((server) =>
-              <ManageServersRow key={server.id} server={server} hasAutoConnect={hasAutoConnect} />)
-            }
+            {serversList.map((server) => (
+              <ManageServersRow key={server.id} server={server} hasAutoConnect={hasAutoConnect} />
+            ))}
           </tbody>
         </table>
       </SimpleCard>

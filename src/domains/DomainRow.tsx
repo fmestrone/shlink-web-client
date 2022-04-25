@@ -6,6 +6,7 @@ import {
   faDotCircle as defaultDomainIcon,
   faEdit as editIcon,
 } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { ShlinkDomainRedirects } from '../api/types';
 import { useToggle } from '../utils/helpers/hooks';
 import { OptionalString } from '../utils/utils';
@@ -31,7 +32,7 @@ const Nr: FC<{ fallback: OptionalString }> = ({ fallback }) => (
 );
 const DefaultDomain: FC = () => (
   <>
-    <FontAwesomeIcon fixedWidth icon={defaultDomainIcon} className="text-primary" id="defaultDomainIcon" />
+    <FontAwesomeIcon fixedWidth icon={defaultDomainIcon as IconProp} className="text-primary" id="defaultDomainIcon" />
     <UncontrolledTooltip target="defaultDomainIcon" placement="right">Default domain</UncontrolledTooltip>
   </>
 );
@@ -39,7 +40,7 @@ const DefaultDomain: FC = () => (
 export const DomainRow: FC<DomainRowProps> = (
   { domain, editDomainRedirects, checkDomainHealth, defaultRedirects, selectedServer },
 ) => {
-  const [ isOpen, toggle ] = useToggle();
+  const [isOpen, toggle] = useToggle();
   const { scheme, domain: authority, isDefault, redirects, status } = domain;
   const canEditDomain = !isDefault || supportsDefaultDomainRedirectsEdition(selectedServer);
 
@@ -66,7 +67,7 @@ export const DomainRow: FC<DomainRowProps> = (
       <td className="responsive-table__cell text-end">
         <span id={!canEditDomain ? 'defaultDomainBtn' : undefined}>
           <Button outline size="sm" disabled={!canEditDomain} onClick={!canEditDomain ? undefined : toggle}>
-            <FontAwesomeIcon fixedWidth icon={!canEditDomain ? forbiddenIcon : editIcon} />
+            <FontAwesomeIcon fixedWidth icon={!canEditDomain ? forbiddenIcon as IconProp : editIcon as IconProp} />
           </Button>
         </span>
         {!canEditDomain && (

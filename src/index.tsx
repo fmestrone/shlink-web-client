@@ -1,7 +1,8 @@
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { homepage } from '../package.json';
+import { AuthProvider } from 'react-oidc-context';
+import pack from '../package.json';
 import { container } from './container';
 import { store } from './container/store';
 import { fixLeafletIcons } from './utils/helpers/leaflet';
@@ -10,6 +11,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'leaflet/dist/leaflet.css';
 import './index.scss';
 
+import oidcConfig from './oidc.json';
+
 // This overwrites icons used for leaflet maps, fixing some issues caused by webpack while processing the CSS
 fixLeafletIcons();
 
@@ -17,10 +20,12 @@ const { App, ScrollToTop, ErrorHandler, appUpdateAvailable } = container;
 
 render(
   <Provider store={store}>
-    <BrowserRouter basename={homepage}>
+    <BrowserRouter basename={pack.homepage}>
       <ErrorHandler>
         <ScrollToTop>
-          <App />
+          <AuthProvider {...oidcConfig}>
+            <App />
+          </AuthProvider>
         </ScrollToTop>
       </ErrorHandler>
     </BrowserRouter>
@@ -28,11 +33,9 @@ render(
   document.getElementById('root'),
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 registerServiceWorker({
   onUpdate() {
-    store.dispatch(appUpdateAvailable()); // eslint-disable-line @typescript-eslint/no-unsafe-call
+    store.dispatch(appUpdateAvailable());
   },
 });

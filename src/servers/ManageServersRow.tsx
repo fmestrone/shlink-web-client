@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck as checkIcon } from '@fortawesome/free-solid-svg-icons';
 import { ServerWithId } from './data';
 import { ManageServersRowDropdownProps } from './ManageServersRowDropdown';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 export interface ManageServersRowProps {
   server: ServerWithId;
@@ -19,7 +20,7 @@ export const ManageServersRow = (
       <td className="responsive-table__cell" data-th="Auto-connect">
         {server.autoConnect && (
           <>
-            <FontAwesomeIcon icon={checkIcon} className="text-primary" id="autoConnectIcon" />
+            <FontAwesomeIcon icon={checkIcon as IconProp} className="text-primary" id="autoConnectIcon" />
             <UncontrolledTooltip target="autoConnectIcon" placement="right">
               Auto-connect to this server
             </UncontrolledTooltip>

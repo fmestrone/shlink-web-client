@@ -7,13 +7,14 @@ import classNames from 'classnames';
 import { useToggle } from '../utils/helpers/hooks';
 import { ShlinkLogo } from './img/ShlinkLogo';
 import './MainHeader.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 const MainHeader = (ServersDropdown: FC) => () => {
-  const [ isOpen, toggleOpen, , close ] = useToggle();
+  const [isOpen, toggleOpen, , close] = useToggle();
   const location = useLocation();
   const { pathname } = location;
 
-  useEffect(close, [ location ]);
+  useEffect(close, [location]);
 
   const settingsPath = '/settings';
   const toggleClass = classNames('main-header__toggle-icon', { 'main-header__toggle-icon--opened': isOpen });
@@ -25,14 +26,14 @@ const MainHeader = (ServersDropdown: FC) => () => {
       </NavbarBrand>
 
       <NavbarToggler onClick={toggleOpen}>
-        <FontAwesomeIcon icon={arrowIcon} className={toggleClass} />
+        <FontAwesomeIcon icon={arrowIcon as IconProp} className={toggleClass} />
       </NavbarToggler>
 
       <Collapse navbar isOpen={isOpen}>
         <Nav navbar className="ms-auto">
           <NavItem>
             <NavLink tag={Link} to={settingsPath} active={pathname.startsWith(settingsPath)}>
-              <FontAwesomeIcon icon={cogsIcon} />&nbsp; Settings
+              <FontAwesomeIcon icon={cogsIcon as IconProp} />&nbsp; Settings
             </NavLink>
           </NavItem>
           <ServersDropdown />

@@ -11,6 +11,7 @@ import { TagEdition } from '../reducers/tagEdit';
 import { Result } from '../../utils/Result';
 import { ShlinkApiError } from '../../api/ShlinkApiError';
 import './EditTagModal.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 interface EditTagModalProps extends TagModalProps {
   tagEdit: TagEdition;
@@ -21,9 +22,9 @@ interface EditTagModalProps extends TagModalProps {
 const EditTagModal = ({ getColorForKey }: ColorGenerator) => (
   { tag, editTag, toggle, tagEdited, isOpen, tagEdit }: EditTagModalProps,
 ) => {
-  const [ newTagName, setNewTagName ] = useState(tag);
-  const [ color, setColor ] = useState(getColorForKey(tag));
-  const [ showColorPicker, toggleColorPicker, , hideColorPicker ] = useToggle();
+  const [newTagName, setNewTagName] = useState(tag);
+  const [color, setColor] = useState(getColorForKey(tag));
+  const [showColorPicker, toggleColorPicker, , hideColorPicker] = useToggle();
   const { editing, error, errorData } = tagEdit;
   const saveTag = handleEventPreventingDefault(
     async () => editTag(tag, newTagName, color)
@@ -44,7 +45,7 @@ const EditTagModal = ({ getColorForKey }: ColorGenerator) => (
               style={{ backgroundColor: color, borderColor: color }}
               onClick={toggleColorPicker}
             >
-              <FontAwesomeIcon icon={colorIcon} className="edit-tag-modal__color-icon" />
+              <FontAwesomeIcon icon={colorIcon as IconProp} className="edit-tag-modal__color-icon" />
             </div>
             <Popover
               isOpen={showColorPicker}

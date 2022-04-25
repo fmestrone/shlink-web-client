@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight as chevronIcon } from '@fortawesome/free-solid-svg-icons';
 import { ServerWithId } from './data';
@@ -15,7 +16,7 @@ interface ServersListGroupProps {
 const ServerListItem = ({ id, name }: { id: string; name: string }) => (
   <ListGroupItem tag={Link} to={`/server/${id}`} className="servers-list__server-item">
     {name}
-    <FontAwesomeIcon icon={chevronIcon} className="servers-list__server-item-icon" />
+    <FontAwesomeIcon icon={chevronIcon as IconProp} className="servers-list__server-item-icon" />
   </ListGroupItem>
 );
 

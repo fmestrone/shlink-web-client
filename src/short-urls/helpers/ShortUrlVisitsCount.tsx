@@ -8,6 +8,7 @@ import { ShortUrl } from '../data';
 import { SelectedServer } from '../../servers/data';
 import ShortUrlDetailLink from './ShortUrlDetailLink';
 import './ShortUrlVisitsCount.scss';
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
 interface ShortUrlVisitsCountProps {
   shortUrl?: ShortUrl | null;
@@ -47,7 +48,7 @@ const ShortUrlVisitsCount = ({ visitsCount, shortUrl, selectedServer, active = f
         >
           {' '}/ {prettifiedMaxVisits}{' '}
           <sup>
-            <FontAwesomeIcon icon={infoIcon} />
+            <FontAwesomeIcon icon={infoIcon as IconProp} />
           </sup>
         </small>
       </span>

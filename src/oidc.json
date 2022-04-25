@@ -1,0 +1,5 @@
+{
+  "authority": "https://auth.nekosoft.org/realms/nekoshlink",
+  "client_id": "nekoshlink-console",
+  "redirect_uri": "http://localhost:3000/"
+}

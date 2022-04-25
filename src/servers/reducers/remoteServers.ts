@@ -1,18 +1,20 @@
-import { pipe, prop } from 'ramda';
-import { AxiosInstance } from 'axios';
+// TODO REMOVE FILE
+
+// import { pipe, prop } from 'ramda';
+// import { AxiosInstance } from 'axios';
 import { Dispatch } from 'redux';
-import { homepage } from '../../../package.json';
-import { hasServerData, ServerData } from '../data';
+import { AuthContextProps } from 'react-oidc-context';
+// import pack from '../../../package.json';
+import { ServerData } from '../data';
 import { createServers } from './servers';
 
-const responseToServersList = pipe(
-  prop<any, any>('data'),
-  (data: any): ServerData[] => Array.isArray(data) ? data.filter(hasServerData) : [],
-);
+export const fetchServers = (auth: AuthContextProps) => () => async (dispatch: Dispatch) => {
+  if (auth.isAuthenticated) {
+    console.log('FETCH SERVERS'); // TODO remove eventually
+    console.log(auth); // TODO remove eventually
+    const servers = createServers(auth.user?.profile?.servers as ServerData[]);
+    console.log(servers); // TODO remove eventually
 
-export const fetchServers = ({ get }: AxiosInstance) => () => async (dispatch: Dispatch) => {
-  const resp = await get(`${homepage}/servers.json`);
-  const remoteList = responseToServersList(resp);
-
-  dispatch(createServers(remoteList));
+    dispatch(servers);
+  }
 };
