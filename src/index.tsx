@@ -1,4 +1,4 @@
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from 'react-oidc-context';
@@ -18,7 +18,7 @@ fixLeafletIcons();
 
 const { App, ScrollToTop, ErrorHandler, appUpdateAvailable } = container;
 
-render(
+createRoot(document.getElementById('root')!).render( // eslint-disable-line @typescript-eslint/no-non-null-assertion
   <Provider store={store}>
     <BrowserRouter basename={pack.homepage}>
       <ErrorHandler>
@@ -30,7 +30,6 @@ render(
       </ErrorHandler>
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root'),
 );
 
 // Learn more about service workers: https://cra.link/PWA

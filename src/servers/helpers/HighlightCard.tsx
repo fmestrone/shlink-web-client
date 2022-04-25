@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { Card, CardText, CardTitle } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { faArrowAltCircleRight as linkIcon } from '@fortawesome/free-regular-svg-icons';
@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './HighlightCard.scss';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 
-export interface HighlightCardProps {
+export type HighlightCardProps = PropsWithChildren<{
   title: string;
   link?: string | false;
-}
+}>;
 
 const buildExtraProps = (link?: string | false) => (!link ? {} : { tag: Link, to: link });
 

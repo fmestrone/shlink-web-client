@@ -13,17 +13,17 @@ import {
   supportsQrErrorCorrection,
 } from '../../utils/helpers/features';
 import { ImageDownloader } from '../../common/services/ImageDownloader';
-import { Versions } from '../../utils/helpers/version';
+import { ForServerVersionProps } from '../../servers/helpers/ForServerVersion';
 import { QrFormatDropdown } from './qr-codes/QrFormatDropdown';
-import './QrCodeModal.scss';
 import { QrErrorCorrectionDropdown } from './qr-codes/QrErrorCorrectionDropdown';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import './QrCodeModal.scss';
 
 interface QrCodeModalConnectProps extends ShortUrlModalProps {
   selectedServer: SelectedServer;
 }
 
-const QrCodeModal = (imageDownloader: ImageDownloader, ForServerVersion: FC<Versions>) => (
+const QrCodeModal = (imageDownloader: ImageDownloader, ForServerVersion: FC<ForServerVersionProps>) => (
   { shortUrl: { qrShortUrl, shortCode }, toggle, isOpen, selectedServer }: QrCodeModalConnectProps,
 ) => {
   const [size, setSize] = useState(300);
