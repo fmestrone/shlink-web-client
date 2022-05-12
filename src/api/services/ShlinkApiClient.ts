@@ -34,6 +34,7 @@ export default class ShlinkApiClient {
     private readonly axios: AxiosInstance,
     private readonly baseUrl: string,
     private readonly apiKey: string,
+    private readonly authToken: string | undefined,
   ) {
   }
 
@@ -127,7 +128,10 @@ export default class ShlinkApiClient {
     this.axios({
       method,
       url: `${buildShlinkBaseUrl(this.baseUrl)}${url}`,
-      headers: { 'X-Api-Key': this.apiKey },
+      headers: {
+        'X-Api-Key': this.apiKey,
+        Authorization: `Bearer ${this.authToken}`,
+      },
       params: rejectNilProps(query),
       data: body,
       paramsSerializer: stringifyQuery,

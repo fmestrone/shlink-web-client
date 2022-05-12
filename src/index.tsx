@@ -19,17 +19,17 @@ fixLeafletIcons();
 const { App, ScrollToTop, ErrorHandler, appUpdateAvailable } = container;
 
 createRoot(document.getElementById('root')!).render( // eslint-disable-line @typescript-eslint/no-non-null-assertion
-  <Provider store={store}>
-    <BrowserRouter basename={pack.homepage}>
-      <ErrorHandler>
-        <ScrollToTop>
-          <AuthProvider {...oidcConfig}>
+  <AuthProvider {...oidcConfig}>
+    <Provider store={store}>
+      <BrowserRouter basename={pack.homepage}>
+        <ErrorHandler>
+          <ScrollToTop>
             <App />
-          </AuthProvider>
-        </ScrollToTop>
-      </ErrorHandler>
-    </BrowserRouter>
-  </Provider>,
+          </ScrollToTop>
+        </ErrorHandler>
+      </BrowserRouter>
+    </Provider>
+  </AuthProvider>,
 );
 
 // Learn more about service workers: https://cra.link/PWA

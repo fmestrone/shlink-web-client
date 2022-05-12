@@ -60,6 +60,7 @@ const App = (
   }
 
   if (auth.isAuthenticated) {
+    console.log(auth);
     return (
       <div className="container-fluid app-container">
         <MainHeader />
